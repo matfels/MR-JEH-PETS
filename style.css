@@ -30,9 +30,9 @@ body {
 }
 
 /* Scrollbar customizada */
-::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: var(--bg-dark); }
-::-webkit-scrollbar-thumb { background: var(--bg-surface-light); border-radius: 5px; }
+::-webkit-scrollbar-thumb { background: var(--bg-surface-light); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
 
 /* === TIPOGRAFIA === */
@@ -63,7 +63,7 @@ h1, h2, h3 { text-transform: uppercase; font-weight: 900; line-height: 1.2; }
 .logo { font-size: 1.5rem; font-weight: 900; letter-spacing: 1px; color: var(--text-light); text-decoration: none; }
 .logo span { color: var(--primary); }
 
-.nav-links { display: flex; gap: 30px; list-style: none; }
+.nav-links { display: flex; gap: 30px; list-style: none; align-items: center; }
 .nav-links a {
     color: var(--text-light);
     text-decoration: none;
@@ -86,7 +86,7 @@ h1, h2, h3 { text-transform: uppercase; font-weight: 900; line-height: 1.2; }
 .btn-outline:hover { background: var(--primary); color: var(--bg-dark); }
 
 /* Mobile Menu */
-.hamburger { display: none; cursor: pointer; border: none; background: none; color: var(--text-light); font-size: 1.5rem; }
+.hamburger { display: none; cursor: pointer; border: none; background: none; color: var(--text-light); font-size: 1.8rem; z-index: 1001; }
 
 /* === HERO SECTION === */
 .hero {
@@ -124,6 +124,7 @@ h1, h2, h3 { text-transform: uppercase; font-weight: 900; line-height: 1.2; }
     border-radius: 4px;
     letter-spacing: 1px;
     transition: var(--transition);
+    display: inline-block;
 }
 .btn-solid:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(229, 190, 1, 0.2); }
 
@@ -133,7 +134,8 @@ section { padding: 100px 5%; }
 /* === SERVIÇOS === */
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    /* Ajustado para não quebrar em telas estreitas */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
     max-width: 1200px;
     margin: 0 auto;
@@ -146,6 +148,8 @@ section { padding: 100px 5%; }
     transition: var(--transition);
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 .card::before {
     content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -157,9 +161,9 @@ section { padding: 100px 5%; }
 
 .card h3 { font-size: 1.5rem; margin-bottom: 15px; z-index: 1; position: relative; }
 .card p { color: var(--text-muted); margin-bottom: 20px; font-size: 0.95rem; z-index: 1; position: relative; }
-.card ul { list-style: none; margin-bottom: 30px; z-index: 1; position: relative; }
-.card ul li { margin-bottom: 10px; font-size: 0.95rem; display: flex; align-items: center; gap: 10px; }
-.card ul li::before { content: '✔'; color: var(--primary); font-weight: bold; }
+.card ul { list-style: none; margin-bottom: 30px; z-index: 1; position: relative; flex-grow: 1; }
+.card ul li { margin-bottom: 10px; font-size: 0.95rem; display: flex; align-items: flex-start; gap: 10px; }
+.card ul li::before { content: '✔'; color: var(--primary); font-weight: bold; margin-top: 2px; }
 
 .price-box {
     border-top: 1px solid #333;
@@ -168,6 +172,7 @@ section { padding: 100px 5%; }
     font-weight: 900;
     color: var(--primary);
     z-index: 1; position: relative;
+    margin-top: auto;
 }
 
 /* === PLANOS ESPECIAIS (BANNER) === */
@@ -213,24 +218,72 @@ footer {
     background-color: #25d366; color: white;
     width: 60px; height: 60px; border-radius: 50%;
     display: flex; justify-content: center; align-items: center;
-    font-size: 30px; text-decoration: none;
+    text-decoration: none;
     box-shadow: 0px 4px 15px rgba(0,0,0,0.5);
     z-index: 1000; transition: var(--transition);
 }
+.float-wa svg { width: 35px; height: 35px; }
 .float-wa:hover { transform: scale(1.1); }
 
-/* === RESPONSIVIDADE === */
+/* ========================================= */
+/*          MEDIA QUERIES (RESPONSIVO)       */
+/* ========================================= */
+
+/* Laptops pequenos e Tablets (até 992px) */
+@media (max-width: 992px) {
+    .hero h1 { font-size: 2.8rem; }
+    .section-title { font-size: 2.2rem; }
+    section { padding: 80px 5%; }
+}
+
+/* Smartphones (até 768px) */
 @media (max-width: 768px) {
-    .nav-links {
-        position: absolute; top: 100%; left: 0; width: 100%;
-        background: var(--bg-dark);
-        flex-direction: column; text-align: center; gap: 0;
-        max-height: 0; overflow: hidden; transition: var(--transition);
-    }
-    .nav-links.active { max-height: 400px; padding: 20px 0; border-bottom: 1px solid #333; }
-    .nav-links li { padding: 15px 0; }
+    /* Navbar e Menu Hambúrguer */
     .hamburger { display: block; }
+    .nav-links {
+        position: fixed; top: 0; right: -100%; width: 250px; height: 100vh;
+        background: var(--bg-surface-light);
+        flex-direction: column; justify-content: center;
+        box-shadow: -5px 0 20px rgba(0,0,0,0.5);
+        transition: 0.4s ease-in-out;
+        border-left: 1px solid #333;
+    }
+    .nav-links.active { right: 0; }
+    .nav-links li { margin: 20px 0; }
+    .nav-links a { font-size: 1.1rem; }
+    
+    /* Espaçamentos e Tipografia */
+    section { padding: 60px 5%; }
+    .hero { padding-top: 100px; justify-content: flex-start; }
+    .hero-img-container { width: 160px; height: 160px; margin-top: 40px; margin-bottom: 20px; }
     .hero h1 { font-size: 2.2rem; }
-    .section-title { font-size: 2rem; }
-    .promo-banner .new-price { font-size: 2.5rem; }
+    .hero p { font-size: 1rem; margin-bottom: 30px; padding: 0 10px; }
+    
+    .section-title { font-size: 1.8rem; margin-bottom: 2rem; }
+    
+    /* Cards e Grid */
+    .services-grid { gap: 20px; }
+    .card { padding: 30px 20px; }
+    .card h3 { font-size: 1.3rem; }
+    
+    /* Banner Promocional */
+    .promo-banner { padding: 30px 15px; }
+    .promo-banner h3 { font-size: 1.5rem; line-height: 1.3; }
+    .promo-banner .new-price { font-size: 2.2rem; }
+    
+    /* Botões */
+    .btn-solid { padding: 15px 30px; font-size: 1rem; }
+    
+    /* WhatsApp Flutuante Menor */
+    .float-wa { width: 50px; height: 50px; bottom: 20px; right: 20px; }
+    .float-wa svg { width: 28px; height: 28px; }
+}
+
+/* Smartphones Muito Pequenos (até 480px) */
+@media (max-width: 480px) {
+    .logo { font-size: 1.3rem; }
+    .hero h1 { font-size: 1.8rem; }
+    .hero-img-container { width: 140px; height: 140px; }
+    .social-links a { display: block; margin: 10px 0; }
+    footer { padding: 40px 5%; }
 }
