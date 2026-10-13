@@ -100,8 +100,8 @@ h1, h2, h3 { text-transform: uppercase; font-weight: 900; line-height: 1.2; }
     background: linear-gradient(to bottom, rgba(10,10,10,0.8), rgba(10,10,10,1)), url('https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&q=80') no-repeat center/cover;
 }
 .hero-img-container {
-    width: 200px;
-    height: 200px;
+    width: 300px;  
+    height: 300px; 
     border-radius: 50%;
     overflow: hidden;
     margin-top: 80px;
